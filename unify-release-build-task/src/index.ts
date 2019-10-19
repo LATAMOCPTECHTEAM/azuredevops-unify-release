@@ -19,6 +19,7 @@ async function run() {
 
         var buildDetails = await devOpsClient.getBuildInfo(teamfoundationProject, parseInt(currentBuildId));
 
+        console.log(`Task Parameters: ReleaseTag: ${releaseTag}, ReleaseOnCancel: ${releaseOnCancel}, ReleaseOnError ${releaseOnError}`)
         console.log(`Processing Build ${buildDetails.id} from Source Version ${buildDetails.sourceVersion}`);
 
         var relatedBuilds = await devOpsClient.listRelatedBuilds(teamfoundationProject, buildDetails.sourceVersion);
@@ -33,6 +34,7 @@ async function run() {
             }
 
             if (build.status == BuildStatus.Completed && (build.result == BuildResult.Succeeded || build.result == BuildResult.PartiallySucceeded)) {
+                console.log(`Build Succeeded, continue.`)
                 continue;
             }
 
