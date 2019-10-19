@@ -1,0 +1,36 @@
+{
+    "manifestVersion": 1,
+    "id": "unify-release-pack",
+    "name": "Unify Release",
+    "version": "0.0.4",
+    "publisher": "PauloBaima",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Tools for building/releasing with Fabrikam. Includes one build/release task.",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "images/extension-icon.png"        
+    },
+    "files": [
+        {
+            "path": "unify-release-build-task"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "unify-release-build-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "unify-release-build-task"
+            }
+        }
+    ]
+}

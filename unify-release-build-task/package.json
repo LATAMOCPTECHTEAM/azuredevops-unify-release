@@ -1,0 +1,34 @@
+{
+  "name": "azuredevops-unify-release",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "debug": "tsc && node --inspect-brk --nolazy bin/index.js",
+    "start": "node bin/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psbds/azuredevops-unify-release.git"
+  },
+  "author": "padasil@microsoft.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/psbds/azuredevops-unify-release/issues"
+  },
+  "homepage": "https://github.com/psbds/azuredevops-unify-release#readme",
+  "dependencies": {
+    "azure-devops-node-api": "^9.0.1",
+    "azure-pipelines-task-lib": "^2.9.3",
+    "dotenv": "^8.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.1",
+    "@types/q": "^1.5.2",
+    "@types/request-promise": "^4.1.44"
+  }
+}

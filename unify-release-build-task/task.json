@@ -1,0 +1,47 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "d953abf4-2d1f-4ba7-bee9-2a43df803f2b",
+    "name": "unify-release-task",
+    "friendlyName": "Unify Release",
+    "description": "Auxiliary Task to unify multiple builds from the same source code to a single release",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Paulo Baima",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Unify Release",
+    "inputs": [
+        {
+            "name": "releaseTag",
+            "type": "string",
+            "label": "Release Ready Tag",
+            "defaultValue": "create_release",
+            "required": true,
+            "helpMarkDown": "The tag that will be created on the build if this is the last completed build from the same checkin. You must add this tag as a required Build Tag on the Artifact Trigger of the Release Pipeline"
+        },
+        {
+            "name": "releaseOnError",
+            "type": "boolean",
+            "label": "Release on Error",
+            "defaultValue": false,
+            "required": true,
+            "helpMarkDown": "Specify if the Build Tag should be create even if one of the related builds fails"
+        },
+        {
+            "name": "releaseOnCancel",
+            "type": "boolean",
+            "label": "Release on Cancel",
+            "defaultValue": false,
+            "required": true,
+            "helpMarkDown": "Specify if the Build Tag should be create even if one of the related builds was cancelled"
+        }
+    ],
+    "execution": {
+        "Node10": {
+            "target": "bin/index.js"
+        }
+    }
+}
