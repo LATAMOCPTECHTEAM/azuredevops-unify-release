@@ -8,6 +8,12 @@ import { BuildResult, BuildStatus } from 'azure-devops-node-api/interfaces/Build
 async function run() {
     try {
         const releaseTag: string = variableManager.getInput('releaseTag', true)!;
+        const waitForAllTriggeredBuilds: boolean = variableManager.getBooleanInput('releaseOnCancel', true)!;
+        const definition1: string = variableManager.getInput('definition1', false)!;
+        const definition2: string = variableManager.getInput('definition2', false)!;
+        const definition3: string = variableManager.getInput('definition3', false)!;
+        const definition4: string = variableManager.getInput('definition4', false)!;
+        const definition5: string = variableManager.getInput('definition5', false)!;
         const releaseOnCancel: boolean = variableManager.getBooleanInput('releaseOnCancel', true)!;
         const releaseOnError: boolean = variableManager.getBooleanInput('releaseOnError', true)!;
         const teamfoundationCollectionUri: string = variableManager.getVariable("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI")!;
@@ -19,10 +25,14 @@ async function run() {
 
         var buildDetails = await devOpsClient.getBuildInfo(teamfoundationProject, parseInt(currentBuildId));
 
+
+
         console.log(`Task Parameters: ReleaseTag: ${releaseTag}, ReleaseOnCancel: ${releaseOnCancel}, ReleaseOnError ${releaseOnError}`)
         console.log(`Processing Build ${buildDetails.id} from Source Version ${buildDetails.sourceVersion}`);
 
-        var relatedBuilds = await devOpsClient.listRelatedBuilds(teamfoundationProject, buildDetails.sourceVersion);
+        var relatedBuilds = await devOpsClient.listRelatedBuilds(teamfoundationProject, buildDetails.sourceVersion, waitForAllTriggeredBuilds, [definition1, definition2, definition3, definition4, definition5]);
+
+
 
         let shouldCreateTag = true;
         for (let build of relatedBuilds.values()) {

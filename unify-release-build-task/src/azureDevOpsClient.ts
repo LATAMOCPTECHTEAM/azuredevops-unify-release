@@ -23,7 +23,7 @@ export default class AzureDevOpsClient {
 
     }
 
-    public async listRelatedBuilds(project: string, sourceVersion: string): Promise<Map<string, Build>> {
+    public async listRelatedBuilds(project: string, sourceVersion: string, waitForAllBuilds: Boolean = true, definitionFilters?: string[]): Promise<Map<string, Build>> {
         let authHandler = azdev.getPersonalAccessTokenHandler(this.token);
         let connection = new azdev.WebApi(this.orgUrl, authHandler);
 
@@ -34,9 +34,20 @@ export default class AzureDevOpsClient {
             .filter(build => build.sourceVersion == sourceVersion)
             .sort((a, b) => b.queueTime.getDate() - a.queueTime.getDate());
 
+        if (!waitForAllBuilds) {
+            relatedBuilds = relatedBuilds
+                .filter(x =>
+                    x.definition.id == parseInt(definitionFilters[0])
+                    ||  x.definition.id == parseInt(definitionFilters[1])
+                    ||  x.definition.id == parseInt(definitionFilters[2])
+                    ||  x.definition.id == parseInt(definitionFilters[3])
+                    ||  x.definition.id == parseInt(definitionFilters[4])
+                )
+        }
+
         // Only the last Build Run for each definition is considered
         let lastDefinitions = new Map<string, Build>();
-        let allBuildDefinitions = new Map<string,Build>();
+        let allBuildDefinitions = new Map<string, Build>();
 
         for (var relatedBuild of relatedBuilds) {
             allBuildDefinitions.set(relatedBuild.definition.id.toString(), relatedBuild);
