@@ -44,7 +44,6 @@
             "label": "Build pipeline",
             "defaultValue": "",
             "required": false,
-            "visibleRule": "buildType == specific",
             "properties": {
                 "EditableOptions": "True",
                 "DisableManageLink": "True",
