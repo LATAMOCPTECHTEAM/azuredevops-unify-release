@@ -19,7 +19,112 @@
             "label": "Release Ready Tag",
             "defaultValue": "create_release",
             "required": true,
-            "helpMarkDown": "The tag that will be created on the build if this is the last completed build from the same checkin. You must add this tag as a required Build Tag on the Artifact Trigger of the Release Pipeline"
+            "helpMarkDown": "The tag that will be created on the build if this is the last completed build from the same source version. You can filter which definitions should be considered on the parameters below."
+        },
+        {
+            "name": "waitForAllBuilds",
+            "type": "boolean",
+            "label": "Wait for All Triggered Builds",
+            "defaultValue": true,
+            "required": true,
+            "helpMarkDown": "If true, this build will depend on all builds that were triggered from the same Source Version to be finished."
+        },
+        {
+            "name": "project",
+            "type": "pickList",
+            "label": "Project",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True"
+            },
+            "helpMarkDown": "Select the project were this build has definitions it will depend on.",
+            "visibleRule": "waitForAllBuilds == false"
+        },
+        {
+            "name": "definition1",
+            "type": "pickList",
+            "label": "Related Definition",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
+            "visibleRule": "project != \"\""
+        },
+        {
+            "name": "definition1",
+            "type": "pickList",
+            "label": "Related Definition",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
+            "visibleRule": "project != \"\""
+        },
+        {
+            "name": "definition2",
+            "type": "pickList",
+            "label": "Related Definition",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
+            "visibleRule": "definition1 != \"\""
+        },
+        {
+            "name": "definition3",
+            "type": "pickList",
+            "label": "Related Definition",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
+            "visibleRule": "definition2 != \"\""
+        },
+        {
+            "name": "definition4",
+            "type": "pickList",
+            "label": "Related Definition",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
+            "visibleRule": "definition3 != \"\""
+        },
+        {
+            "name": "definition5",
+            "type": "pickList",
+            "label": "Related Definition",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
+            "visibleRule": "definition4 != \"\""
         },
         {
             "name": "releaseOnError",
@@ -37,41 +142,6 @@
             "required": true,
             "helpMarkDown": "Specify if the Build Tag should be create even if one of the related builds was cancelled"
         },
-        {
-            "name": "waitForAllBuilds",
-            "type": "boolean",
-            "label": "Wait for All Triggered Builds",
-            "defaultValue": true,
-            "required": true,
-            "helpMarkDown": "If true, this build will depend on all builds that were triggered from the same Source Version to be finished"
-        },
-        {
-            "name": "project",
-            "type": "pickList",
-            "label": "Project",
-            "defaultValue": "",
-            "required": false,
-            "properties": {
-                "EditableOptions": "True",
-                "DisableManageLink": "True"
-            },
-            "helpMarkDown": "Select the project were this build has definitions it will depend on",
-            "visibleRule": "waitForAllBuilds == false"
-        },
-        {
-            "name": "definition1",
-            "type": "pickList",
-            "label": "Build pipeline",
-            "defaultValue": "",
-            "required": false,
-            "properties": {
-                "EditableOptions": "True",
-                "DisableManageLink": "True",
-                "IsSearchable": "True"
-            },
-            "helpMarkDown": "Select the builds that this build will depend on. (if triggered from the same Source Version)",
-            "visibleRule": "project != \"\""
-        }
     ],
     "dataSourceBindings": [
         {
@@ -87,6 +157,58 @@
         {
             "endpointId": "tfs:teamfoundation",
             "target": "definition1",
+            "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&queryOrder=2",
+            "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
+            "parameters": {
+                "project": "$(project)"
+            },
+            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
+            "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
+            "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
+            "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
+        },
+        {
+            "endpointId": "tfs:teamfoundation",
+            "target": "definition2",
+            "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&queryOrder=2",
+            "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
+            "parameters": {
+                "project": "$(project)"
+            },
+            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
+            "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
+            "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
+            "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
+        },
+        {
+            "endpointId": "tfs:teamfoundation",
+            "target": "definition3",
+            "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&queryOrder=2",
+            "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
+            "parameters": {
+                "project": "$(project)"
+            },
+            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
+            "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
+            "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
+            "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
+        },
+        {
+            "endpointId": "tfs:teamfoundation",
+            "target": "definition4",
+            "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&queryOrder=2",
+            "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
+            "parameters": {
+                "project": "$(project)"
+            },
+            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
+            "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
+            "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
+            "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
+        },
+        {
+            "endpointId": "tfs:teamfoundation",
+            "target": "definition5",
             "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&queryOrder=2",
             "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
             "parameters": {
