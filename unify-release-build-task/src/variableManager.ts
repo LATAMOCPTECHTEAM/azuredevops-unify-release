@@ -6,7 +6,7 @@ config({ path: resolve(__dirname, "../.env") })
 export default class VariableManager {
 
     getInput(key: string, required: boolean): string | undefined {
-        if (process.env.NODE_ENV = "development") {
+        if (process.env.NODE_ENV = "local") {
             if (required && !process.env[key]) {
                 throw new Error(`Required Parameter ${key} not supplied.`)
             }
@@ -25,7 +25,7 @@ export default class VariableManager {
     }
 
     getVariable(key: string): string | undefined {
-        if (process.env.NODE_ENV = "development") {
+        if (process.env.NODE_ENV = "local") {
             return process.env[key];
         } else {
             const value: string = tl.getVariable(key)!;
