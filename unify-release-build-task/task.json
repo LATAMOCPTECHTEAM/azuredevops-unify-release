@@ -56,9 +56,10 @@
         {
             "endpointId": "tfs:teamfoundation",
             "target": "waitForDefinition",
-            "endpointUrl": "{{endpoint.url}}/{{$(System.TeamProjectId)}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&name=*{{name}}*&queryOrder=2",
+            "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&name=*{{name}}*&queryOrder=2",
             "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
             "parameters": {
+                "project": "$(System.TeamProjectId)",
                 "name": "$(name)"
             },
             "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
