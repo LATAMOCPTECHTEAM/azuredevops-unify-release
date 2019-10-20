@@ -50,17 +50,61 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "Select the build pipeline name"
-        }
-    ],
-    "sourceDefinitions": [
+        },
         {
-            "target": "waitForDefinition",
-            "endpoint": "/$(system.teamProject)/_apis/build/definitions?api-version=3.0-preview",
-            "selector": "jsonpath:$.name",
-            "keySelector": "jsonpath:$.name",
-            "authKey": "tfs:teamfoundation"
+            "name": "project",
+            "type": "pickList",
+            "label": "Project",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": true,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True"
+            },
+            "helpMarkDown": "The project from which to download the build artifacts"
+        },
+        {
+            "name": "waitForDefinition",
+            "type": "pickList",
+            "label": "Build pipeline",
+            "defaultValue": "",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "Select the build pipeline name"
         }
     ],
+    "dataSourceBindings": [
+        {
+            "endpointId": "tfs:teamfoundation",
+            "target": "project",
+            "endpointUrl": "{{endpoint.url}}/_apis/projects?$skip={{skip}}&$top=1000",
+            "resultSelector": "jsonpath:$.value[?(@.state=='wellFormed')]",
+            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
+            "callbackContextTemplate": "{\"skip\": \"{{add skip 1000}}\"}",
+            "callbackRequiredTemplate": "{{isEqualNumber result.count 1000}}",
+            "initialContextTemplate": "{\"skip\": \"0\"}"
+        },
+        {
+            "endpointId": "tfs:teamfoundation",
+            "target": "definition",
+            "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&name=*{{name}}*&queryOrder=2",
+            "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
+            "parameters": {
+                "project": "$(project)",
+                "name": "$(searchText)"
+            },
+            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
+            "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
+            "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
+            "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
+        },
+    ],
+
     "execution": {
         "Node10": {
             "target": "bin/index.js"
