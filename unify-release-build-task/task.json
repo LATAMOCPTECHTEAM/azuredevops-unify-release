@@ -52,19 +52,13 @@
             "helpMarkDown": "Select the build pipeline name"
         }
     ],
-    "dataSourceBindings": [
+    "sourceDefinitions": [
         {
-            "endpointId": "tfs:teamfoundation",
             "target": "waitForDefinition",
-            "endpointUrl": "{{endpoint.url}}/$(system.teamProject)/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&name=*{{name}}*&queryOrder=2",
-            "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
-            "parameters": {
-                "name": "$(name)"
-            },
-            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
-            "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
-            "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
-            "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
+            "endpoint": "/$(system.teamProject)/_apis/build/definitions?api-version=3.0-preview",
+            "selector": "jsonpath:$.name",
+            "keySelector": "jsonpath:$.name",
+            "authKey": "tfs:teamfoundation"
         }
     ],
     "execution": {
