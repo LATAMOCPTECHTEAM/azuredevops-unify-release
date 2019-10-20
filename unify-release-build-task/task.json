@@ -82,7 +82,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "definition1 != \"\""
+            "visibleRule": "project != \"\""
         },
         {
             "name": "definition3",
@@ -96,7 +96,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "definition2 != \"\""
+            "visibleRule": "project != \"\""
         },
         {
             "name": "definition4",
@@ -110,7 +110,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "definition3 != \"\""
+            "visibleRule": "project != \"\""
         },
         {
             "name": "definition5",
@@ -124,7 +124,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "definition4 != \"\""
+            "visibleRule": "project != \"\""
         },
         {
             "name": "releaseOnError",
