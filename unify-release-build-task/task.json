@@ -38,20 +38,29 @@
             "helpMarkDown": "Specify if the Build Tag should be create even if one of the related builds was cancelled"
         },
         {
+            "name": "waitForAllBuilds",
+            "type": "boolean",
+            "label": "Wait for All Triggered Builds",
+            "defaultValue": true,
+            "required": true,
+            "helpMarkDown": "If true, this build will depend on all builds that were triggered from the same Source Version to be finished"
+        },
+        {
             "name": "project",
             "type": "pickList",
             "label": "Project",
             "defaultValue": "",
-            "required": true,
+            "required": false,
             "properties": {
                 "EditableOptions": "True",
                 "DisableManageLink": "True"
             },
-            "helpMarkDown": "The project from which to download the build artifacts"
+            "helpMarkDown": "Select the project were this build has definitions it will depend on",
+            "visibleRule": "waitForAllBuilds == false"
         },
         {
-            "name": "waitForDefinition",
-            "type": "StringList",
+            "name": "definition1",
+            "type": "pickList",
             "label": "Build pipeline",
             "defaultValue": "",
             "required": false,
@@ -60,7 +69,8 @@
                 "DisableManageLink": "True",
                 "IsSearchable": "True"
             },
-            "helpMarkDown": "Select the build pipeline name"
+            "helpMarkDown": "Select the builds that this build will depend on. (if triggered from the same Source Version)",
+            "visibleRule": "project == false"
         }
     ],
     "dataSourceBindings": [
@@ -76,7 +86,7 @@
         },
         {
             "endpointId": "tfs:teamfoundation",
-            "target": "waitForDefinition",
+            "target": "definition1",
             "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&queryOrder=2",
             "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
             "parameters": {
@@ -88,7 +98,6 @@
             "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
         }
     ],
-
     "execution": {
         "Node10": {
             "target": "bin/index.js"
