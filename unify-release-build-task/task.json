@@ -70,7 +70,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "Select the builds that this build will depend on. (if triggered from the same Source Version)",
-            "visibleRule": "project != "
+            "visibleRule": "project != \"\""
         }
     ],
     "dataSourceBindings": [
