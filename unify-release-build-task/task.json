@@ -102,7 +102,7 @@
             "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
             "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
             "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
-        },
+        }
     ],
 
     "execution": {
