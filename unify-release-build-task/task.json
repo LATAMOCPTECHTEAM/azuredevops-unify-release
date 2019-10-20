@@ -57,20 +57,6 @@
             "visibleRule": "project != \"\""
         },
         {
-            "name": "definition1",
-            "type": "pickList",
-            "label": "Related Definition",
-            "defaultValue": "",
-            "required": false,
-            "properties": {
-                "EditableOptions": "True",
-                "DisableManageLink": "True",
-                "IsSearchable": "True"
-            },
-            "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "project != \"\""
-        },
-        {
             "name": "definition2",
             "type": "pickList",
             "label": "Related Definition",
@@ -82,7 +68,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "project != \"\""
+            "visibleRule": "definition1 != \"\""
         },
         {
             "name": "definition3",
@@ -96,7 +82,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "project != \"\""
+            "visibleRule": "definition2 != \"\""
         },
         {
             "name": "definition4",
@@ -110,7 +96,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "project != \"\""
+            "visibleRule": "definition3 != \"\""
         },
         {
             "name": "definition5",
@@ -124,7 +110,7 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "If selected, this build will depend only from the builds from the selected definition that originated from the same Source Version.",
-            "visibleRule": "project != \"\""
+            "visibleRule": "definition4 != \"\""
         },
         {
             "name": "releaseOnError",
