@@ -51,7 +51,7 @@
         },
         {
             "name": "waitForDefinition",
-            "type": "pickList",
+            "type": "StringList",
             "label": "Build pipeline",
             "defaultValue": "",
             "required": false,
