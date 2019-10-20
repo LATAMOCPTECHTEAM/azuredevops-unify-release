@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
     "id": "d953abf4-2d1f-4ba7-bee9-2a43df803f2b",
     "name": "unify-release-task",
     "friendlyName": "Unify Release",
@@ -77,7 +76,7 @@
         },
         {
             "endpointId": "tfs:teamfoundation",
-            "target": "definition",
+            "target": "waitForDefinition",
             "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&queryOrder=2",
             "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
             "parameters": {
