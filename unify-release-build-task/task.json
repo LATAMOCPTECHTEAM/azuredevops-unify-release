@@ -141,7 +141,7 @@
             "defaultValue": false,
             "required": true,
             "helpMarkDown": "Specify if the Build Tag should be create even if one of the related builds was cancelled"
-        },
+        }
     ],
     "dataSourceBindings": [
         {
