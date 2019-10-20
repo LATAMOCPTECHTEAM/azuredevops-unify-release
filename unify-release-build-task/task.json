@@ -37,6 +37,35 @@
             "defaultValue": false,
             "required": true,
             "helpMarkDown": "Specify if the Build Tag should be create even if one of the related builds was cancelled"
+        },
+        {
+            "name": "waitForDefinition",
+            "type": "pickList",
+            "label": "Build pipeline",
+            "defaultValue": "",
+            "required": false,
+            "visibleRule": "buildType == specific",
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True",
+                "IsSearchable": "True"
+            },
+            "helpMarkDown": "Select the build pipeline name"
+        }
+    ],
+    "dataSourceBindings": [
+        {
+            "endpointId": "tfs:teamfoundation",
+            "target": "waitForDefinition",
+            "endpointUrl": "{{endpoint.url}}/{{System.TeamProjectId}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&name=*{{name}}*&queryOrder=2",
+            "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
+            "parameters": {
+                "name": "$(name)"
+            },
+            "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
+            "callbackContextTemplate": "{\"continuationToken\" : \"{{{headers.x-ms-continuationtoken}}}\"}",
+            "callbackRequiredTemplate": "{{{#headers.x-ms-continuationtoken}}}true{{{/headers.x-ms-continuationtoken}}}",
+            "initialContextTemplate": "{\"continuationToken\" : \"{{{system.utcNow}}}\"}"
         }
     ],
     "execution": {
