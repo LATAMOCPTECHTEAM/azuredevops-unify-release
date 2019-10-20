@@ -53,13 +53,19 @@ var azureDevOpsClient_1 = require("./azureDevOpsClient");
 var BuildInterfaces_1 = require("azure-devops-node-api/interfaces/BuildInterfaces");
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var releaseTag, releaseOnCancel, releaseOnError, teamfoundationCollectionUri, teamfoundationProject, accessToken, currentBuildId, devOpsClient, buildDetails, relatedBuilds, shouldCreateTag, _a, _b, build, err_1;
+        var releaseTag, waitForAllTriggeredBuilds, definition1, definition2, definition3, definition4, definition5, releaseOnCancel, releaseOnError, teamfoundationCollectionUri, teamfoundationProject, accessToken, currentBuildId, devOpsClient, buildDetails, relatedBuilds, shouldCreateTag, _a, _b, build, err_1;
         var e_1, _c;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
                     _d.trys.push([0, 5, , 6]);
                     releaseTag = variableManager_1.variableManager.getInput('releaseTag', true);
+                    waitForAllTriggeredBuilds = variableManager_1.variableManager.getBooleanInput('waitForAllBuilds', true);
+                    definition1 = variableManager_1.variableManager.getInput('definition1', false);
+                    definition2 = variableManager_1.variableManager.getInput('definition2', false);
+                    definition3 = variableManager_1.variableManager.getInput('definition3', false);
+                    definition4 = variableManager_1.variableManager.getInput('definition4', false);
+                    definition5 = variableManager_1.variableManager.getInput('definition5', false);
                     releaseOnCancel = variableManager_1.variableManager.getBooleanInput('releaseOnCancel', true);
                     releaseOnError = variableManager_1.variableManager.getBooleanInput('releaseOnError', true);
                     teamfoundationCollectionUri = variableManager_1.variableManager.getVariable("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI");
@@ -70,8 +76,9 @@ function run() {
                     return [4 /*yield*/, devOpsClient.getBuildInfo(teamfoundationProject, parseInt(currentBuildId))];
                 case 1:
                     buildDetails = _d.sent();
+                    console.log("Task Parameters: ReleaseTag: " + releaseTag + ", ReleaseOnCancel: " + releaseOnCancel + ", ReleaseOnError " + releaseOnError);
                     console.log("Processing Build " + buildDetails.id + " from Source Version " + buildDetails.sourceVersion);
-                    return [4 /*yield*/, devOpsClient.listRelatedBuilds(teamfoundationProject, buildDetails.sourceVersion)];
+                    return [4 /*yield*/, devOpsClient.listRelatedBuilds(teamfoundationProject, buildDetails.sourceVersion, waitForAllTriggeredBuilds, [definition1, definition2, definition3, definition4, definition5])];
                 case 2:
                     relatedBuilds = _d.sent();
                     shouldCreateTag = true;
@@ -84,7 +91,8 @@ function run() {
                                 console.log("---> Build " + build.id + " is the same of current build " + buildDetails.id);
                                 continue;
                             }
-                            if (build.status == BuildInterfaces_1.BuildStatus.Completed) {
+                            if (build.status == BuildInterfaces_1.BuildStatus.Completed && (build.result == BuildInterfaces_1.BuildResult.Succeeded || build.result == BuildInterfaces_1.BuildResult.PartiallySucceeded)) {
+                                console.log("Build Succeeded, continue.");
                                 continue;
                             }
                             if (build.result == BuildInterfaces_1.BuildResult.Canceled && !releaseOnCancel) {

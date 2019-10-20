@@ -8,7 +8,7 @@ import { BuildResult, BuildStatus } from 'azure-devops-node-api/interfaces/Build
 async function run() {
     try {
         const releaseTag: string = variableManager.getInput('releaseTag', true)!;
-        const waitForAllTriggeredBuilds: boolean = variableManager.getBooleanInput('waitForAllBuilds', true)!;
+        const waitForAllTriggeredBuilds: boolean = variableManager.getBooleanInput('waitForAllBuilds', false)!;
         const definition1: string = variableManager.getInput('definition1', false)!;
         const definition2: string = variableManager.getInput('definition2', false)!;
         const definition3: string = variableManager.getInput('definition3', false)!;

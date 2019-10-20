@@ -69,7 +69,8 @@ var AzureDevOpsClient = /** @class */ (function () {
             });
         });
     };
-    AzureDevOpsClient.prototype.listRelatedBuilds = function (project, sourceVersion) {
+    AzureDevOpsClient.prototype.listRelatedBuilds = function (project, sourceVersion, waitForAllBuilds, definitionFilters) {
+        if (waitForAllBuilds === void 0) { waitForAllBuilds = true; }
         return __awaiter(this, void 0, void 0, function () {
             var authHandler, connection, build, allBuilds, relatedBuilds, lastDefinitions, allBuildDefinitions, relatedBuilds_1, relatedBuilds_1_1, relatedBuild;
             var e_1, _a;
@@ -87,6 +88,16 @@ var AzureDevOpsClient = /** @class */ (function () {
                         relatedBuilds = allBuilds
                             .filter(function (build) { return build.sourceVersion == sourceVersion; })
                             .sort(function (a, b) { return b.queueTime.getDate() - a.queueTime.getDate(); });
+                        if (!waitForAllBuilds) {
+                            relatedBuilds = relatedBuilds
+                                .filter(function (x) {
+                                return x.definition.id == parseInt(definitionFilters[0])
+                                    || x.definition.id == parseInt(definitionFilters[1])
+                                    || x.definition.id == parseInt(definitionFilters[2])
+                                    || x.definition.id == parseInt(definitionFilters[3])
+                                    || x.definition.id == parseInt(definitionFilters[4]);
+                            });
+                        }
                         lastDefinitions = new Map();
                         allBuildDefinitions = new Map();
                         try {
