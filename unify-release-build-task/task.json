@@ -12,6 +12,18 @@
         "Patch": 1
     },
     "instanceNameFormat": "Unify Release",
+    "groups": [
+        {
+            "name": "filters",
+            "displayName": "Filters",
+            "isExpanded": true
+        },
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }
+    ],
     "inputs": [
         {
             "name": "releaseTag",
@@ -23,6 +35,7 @@
         },
         {
             "name": "waitForAllBuilds",
+            "groupName": "filters",
             "type": "boolean",
             "label": "Wait for All Triggered Builds",
             "defaultValue": true,
@@ -31,6 +44,7 @@
         },
         {
             "name": "project",
+            "groupName": "filters",
             "type": "pickList",
             "label": "Project",
             "defaultValue": "",
@@ -44,6 +58,7 @@
         },
         {
             "name": "definition1",
+            "groupName": "filters",
             "type": "pickList",
             "label": "Related Definition",
             "defaultValue": "",
@@ -58,6 +73,7 @@
         },
         {
             "name": "definition2",
+            "groupName": "filters",
             "type": "pickList",
             "label": "Related Definition",
             "defaultValue": "",
@@ -72,6 +88,7 @@
         },
         {
             "name": "definition3",
+            "groupName": "filters",
             "type": "pickList",
             "label": "Related Definition",
             "defaultValue": "",
@@ -86,6 +103,7 @@
         },
         {
             "name": "definition4",
+            "groupName": "filters",
             "type": "pickList",
             "label": "Related Definition",
             "defaultValue": "",
@@ -100,6 +118,7 @@
         },
         {
             "name": "definition5",
+            "groupName": "filters",
             "type": "pickList",
             "label": "Related Definition",
             "defaultValue": "",
@@ -114,6 +133,7 @@
         },
         {
             "name": "releaseOnError",
+            "groupName": "advanced",
             "type": "boolean",
             "label": "Release on Error",
             "defaultValue": false,
@@ -122,6 +142,7 @@
         },
         {
             "name": "releaseOnCancel",
+            "groupName": "advanced",
             "type": "boolean",
             "label": "Release on Cancel",
             "defaultValue": false,
