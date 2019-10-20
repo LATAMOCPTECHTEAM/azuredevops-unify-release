@@ -39,19 +39,6 @@
             "helpMarkDown": "Specify if the Build Tag should be create even if one of the related builds was cancelled"
         },
         {
-            "name": "waitForDefinition",
-            "type": "pickList",
-            "label": "Build pipeline",
-            "defaultValue": "",
-            "required": false,
-            "properties": {
-                "EditableOptions": "True",
-                "DisableManageLink": "True",
-                "IsSearchable": "True"
-            },
-            "helpMarkDown": "Select the build pipeline name"
-        },
-        {
             "name": "project",
             "type": "pickList",
             "label": "Project",
