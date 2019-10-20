@@ -50,15 +50,28 @@
                 "IsSearchable": "True"
             },
             "helpMarkDown": "Select the build pipeline name"
+        },
+        {
+            "name": "project",
+            "type": "string",
+            "label": "Project",
+            "defaultValue": "$(System.TeamProjectId)",
+            "required": true,
+            "properties": {
+                "EditableOptions": "True",
+                "DisableManageLink": "True"
+            },
+            "helpMarkDown": "The project from which to download the build artifacts"
         }
     ],
     "dataSourceBindings": [
         {
             "endpointId": "tfs:teamfoundation",
             "target": "waitForDefinition",
-            "endpointUrl": "{{endpoint.url}}/$(System.TeamProjectId)/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&name=*{{name}}*&queryOrder=2",
+            "endpointUrl": "{{endpoint.url}}/{{project}}/_apis/build/definitions?api-version=3.0-preview&$top=500&continuationToken={{{continuationToken}}}&name=*{{name}}*&queryOrder=2",
             "resultSelector": "jsonpath:$.value[?(@.quality=='definition')]",
             "parameters": {
+                "project": "$(project)",
                 "name": "$(name)"
             },
             "resultTemplate": "{ \"Value\" : \"{{{id}}}\", \"DisplayValue\" : \"{{{name}}}\" }",
