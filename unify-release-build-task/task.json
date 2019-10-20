@@ -57,7 +57,7 @@
             "label": "Project",
             "defaultValue": "",
             "required": true,
-            "visibleRule": "true",
+            "visibleRule": "true == true",
             "properties": {
                 "EditableOptions": "True",
                 "DisableManageLink": "True"
