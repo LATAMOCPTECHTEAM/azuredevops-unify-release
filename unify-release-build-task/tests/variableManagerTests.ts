@@ -5,7 +5,7 @@ import { stubObject } from "ts-sinon";
 import VariableManager from "../src/variableManager";
 import { container } from "tsyringe";
 import * as TaskLib from "azure-pipelines-task-lib/task";
-
+  
 describe('Variable Manager', () => {
     beforeEach(() => {
         container.reset();
