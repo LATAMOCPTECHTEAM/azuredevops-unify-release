@@ -1,11 +1,15 @@
 import tl = require('azure-pipelines-task-lib/task');
 import { resolve } from "path"
 import { config } from "dotenv"
-import { injectable } from "tsyringe";
+import { injectable, inject } from "tsyringe";
 
 config({ path: resolve(__dirname, "../.env") })
 @injectable()
 export default class VariableManager {
+
+    constructor(@inject("TaskLib") private taskLib: any) {
+    }
+
     getInput(key: string, required: boolean): string | undefined {
         if (process.env.NODE_ENV == "development") {
             if (required && !process.env[key]) {
@@ -13,7 +17,7 @@ export default class VariableManager {
             }
             return process.env[key];
         } else {
-            return tl.getInput(key, required)!;
+            return this.taskLib.getInput(key, required)!;
         }
     }
 
@@ -26,7 +30,7 @@ export default class VariableManager {
         if (process.env.NODE_ENV == "development") {
             return process.env[key];
         } else {
-            return tl.getVariable(key)!;
+            return this.taskLib.getVariable(key)!;
         }
     }
 }

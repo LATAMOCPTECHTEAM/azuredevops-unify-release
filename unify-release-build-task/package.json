@@ -7,7 +7,9 @@
     "compile": "tsc",
     "debug": "tsc && node --inspect-brk --nolazy bin/index.js",
     "start": "node bin/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-debug": "mocha -r ts-node/register --inspect-brk tests/**/*.ts",
+    "test": "mocha -r ts-node/register tests/**/*.ts"
+
   },
   "repository": {
     "type": "git",
@@ -29,8 +31,15 @@
     "tsyringe": "^4.0.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.5",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^12.11.1",
     "@types/q": "^1.5.2",
-    "@types/request-promise": "^4.1.44"
+    "@types/request-promise": "^4.1.44",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0",
+    "ts-node": "^8.5.2",
+    "ts-sinon": "^1.0.24"
   }
 }

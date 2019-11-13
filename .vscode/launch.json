@@ -17,6 +17,21 @@
             ],
             "port": 9229,
             "outFiles": ["${workspaceRoot}/unify-release-build-task/bin"],
+            "sourceMaps": true,
+            "timeout": 30000
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Test unify-release-build-task",
+            "cwd":"${workspaceFolder}/unify-release-build-task",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "test-debug"
+            ],
+            "port": 9229,
+            "outFiles": ["${workspaceRoot}/unify-release-build-task/bin"],
             "sourceMaps": true
         }
     ]
