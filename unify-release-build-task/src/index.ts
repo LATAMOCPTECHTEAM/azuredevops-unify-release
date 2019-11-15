@@ -1,12 +1,15 @@
+import "reflect-metadata";
 import tl = require('azure-pipelines-task-lib/task');
 import * as request from "request-promise";
-import { variableManager } from "./variableManager";
+import VariableManager from "./variableManager";
 import AzureDevOpsClient from "./azureDevOpsClient";
 import { BuildResult, BuildStatus } from 'azure-devops-node-api/interfaces/BuildInterfaces';
-
+import {container} from "tsyringe";
 
 async function run() {
     try {
+        console.log("hel")
+        const variableManager = container.resolve(VariableManager);
         const releaseTag: string = variableManager.getInput('releaseTag', true)!;
         const waitForAllTriggeredBuilds: boolean = variableManager.getBooleanInput('waitForAllBuilds', false)!;
         const definition1: string = variableManager.getInput('definition1', false)!;

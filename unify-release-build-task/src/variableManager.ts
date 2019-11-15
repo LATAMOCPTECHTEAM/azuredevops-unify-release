@@ -1,26 +1,24 @@
 import tl = require('azure-pipelines-task-lib/task');
 import { resolve } from "path"
 import { config } from "dotenv"
+import { injectable } from "tsyringe";
 
 config({ path: resolve(__dirname, "../.env") })
+@injectable()
 export default class VariableManager {
-
     getInput(key: string, required: boolean): string | undefined {
         if (process.env.NODE_ENV == "development") {
             if (required && !process.env[key]) {
                 throw new Error(`Required Parameter ${key} not supplied.`)
             }
             return process.env[key];
-
         } else {
-            const value: string = tl.getInput(key, required)!;
-            return value;
+            return tl.getInput(key, required)!;
         }
     }
 
     getBooleanInput(key: string, required: boolean): boolean | undefined {
         let value = this.getInput(key, required);
-
         return value == "true" ? true : false;
     }
 
@@ -28,10 +26,7 @@ export default class VariableManager {
         if (process.env.NODE_ENV == "development") {
             return process.env[key];
         } else {
-            const value: string = tl.getVariable(key)!;
-            return value;
+            return tl.getVariable(key)!;
         }
     }
 }
-var variableManager = new VariableManager();
-export { variableManager };

@@ -5,6 +5,8 @@
     "outDir": "bin",
     "rootDir": "src",
     "sourceMap": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }
