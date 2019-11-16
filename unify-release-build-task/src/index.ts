@@ -2,7 +2,7 @@ import "./dependency-injection";
 import tl = require('azure-pipelines-task-lib/task');
 import * as request from "request-promise";
 import VariableManager from "./variableManager";
-import AzureDevOpsClient from "./azureDevOpsClient";
+import AzureDevOpsClient from "./buildService";
 import { BuildResult, BuildStatus } from 'azure-devops-node-api/interfaces/BuildInterfaces';
 import { container } from "tsyringe";
 
@@ -23,16 +23,16 @@ async function run() {
         const accessToken: string = variableManager.getVariable("SYSTEM_ACCESSTOKEN")!;
         const currentBuildId: string = variableManager.getVariable("BUILD_BUILDID")!;
 
-        var devOpsClient = new AzureDevOpsClient(teamfoundationCollectionUri, accessToken);
+        var devOpsClient = container.resolve(AzureDevOpsClient);
 
-        var buildDetails = await devOpsClient.getBuildInfo(teamfoundationProject, parseInt(currentBuildId));
+        var buildDetails = await devOpsClient.getBuildInfo(teamfoundationCollectionUri, accessToken, teamfoundationProject, parseInt(currentBuildId));
 
 
 
         console.log(`Task Parameters: ReleaseTag: ${releaseTag}, ReleaseOnCancel: ${releaseOnCancel}, ReleaseOnError ${releaseOnError}`)
         console.log(`Processing Build ${buildDetails.id} from Source Version ${buildDetails.sourceVersion}`);
 
-        var relatedBuilds = await devOpsClient.listRelatedBuilds(teamfoundationProject, buildDetails.sourceVersion, waitForAllTriggeredBuilds, [definition1, definition2, definition3, definition4, definition5]);
+        var relatedBuilds = await devOpsClient.listRelatedBuilds(teamfoundationCollectionUri, accessToken, teamfoundationProject, buildDetails.sourceVersion, waitForAllTriggeredBuilds, [definition1, definition2, definition3, definition4, definition5]);
 
 
 
@@ -63,7 +63,7 @@ async function run() {
         }
 
         if (shouldCreateTag) {
-            await devOpsClient.addBuildTag(teamfoundationProject, buildDetails.id, releaseTag);
+            await devOpsClient.addBuildTag(teamfoundationCollectionUri, accessToken, teamfoundationProject, buildDetails.id, releaseTag);
             console.log(`No Concurrent Builds, Creating tag ${releaseTag}. Please remember to add this tag as a condition in your release pipeline trigger.`)
         }
 

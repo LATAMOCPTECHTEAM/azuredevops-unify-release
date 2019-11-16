@@ -7,9 +7,11 @@
     "compile": "tsc",
     "debug": "tsc && node --inspect-brk --nolazy bin/index.js",
     "start": "node bin/index.js",
-    "test-debug": "mocha -r ts-node/register --inspect-brk tests/**/*.ts",
     "test": "mocha -r ts-node/register --reporter-options mochaFile=testReport/test-results.xml --reporter mocha-junit-reporter tests/**/*.ts",
-    "coverage": "nyc --all --report-dir testReport --reporter cobertura npm run test"
+    "test-debug": "mocha -r ts-node/register --inspect-brk tests/**/*.ts",
+    "test-local": "mocha -r ts-node/register tests/**/*.ts",
+    "coverage": "tsc && nyc --all --report-dir testReport --reporter cobertura npm run test",
+    "coverage-local": "tsc && nyc --all --report-dir testReport --reporter text npm run test-local"
   },
   "repository": {
     "type": "git",
