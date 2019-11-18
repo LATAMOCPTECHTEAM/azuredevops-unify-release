@@ -5,10 +5,7 @@ import { injectable, inject } from "tsyringe";
 
 @injectable()
 export default class AzureDevOpsWrapper {
-
-    constructor() {
-
-    }
+    constructor() { }
 
     async getBuildApi(organizationUrl: string, token: string): Promise<IBuildApi> {
         let authHandler = azdev.getPersonalAccessTokenHandler(token);
