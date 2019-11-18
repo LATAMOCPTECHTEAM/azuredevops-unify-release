@@ -1,8 +1,6 @@
-import "./dependency-injection";
+import "./helpers/dependency-injection";
 import tl = require('azure-pipelines-task-lib/task');
-import VariableManager from "./variableManager";
-import AzureDevOpsClient from "./buildService";
-import { BuildResult, BuildStatus } from 'azure-devops-node-api/interfaces/BuildInterfaces';
+import AzureDevOpsClient from "./services/buildService";
 import { container } from "tsyringe";
 import AzureDevopsConfiguration from "./models/AzureDevOpsConfiguration"
 async function run() {

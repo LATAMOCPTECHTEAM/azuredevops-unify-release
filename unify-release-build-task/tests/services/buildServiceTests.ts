@@ -5,9 +5,9 @@ import 'mocha';
 import { stubObject as Stub, StubbedInstance, stubInterface } from "ts-sinon";
 
 //# Imports
-import AzureDevOpsClientWrapper from "../../src/azureDevOpsClientWrapper";
+import AzureDevOpsClientWrapper from "../../src/helpers/azureDevOpsClientWrapper";
 import { Build, BuildStatus, BuildResult } from "azure-devops-node-api/interfaces/BuildInterfaces";
-import AzureDevOpsClient from "../../src/buildService";
+import AzureDevOpsClient from "../../src/services/buildService";
 
 //# Tests
 describe('AzureDevOpsBuildService', () => {

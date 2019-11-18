@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { injectable, inject } from "tsyringe";
-import VariableManager from "../variableManager";
+import VariableManager from "../helpers/variableManager";
 
 @injectable()
 export default class AzureDevOpsConfiguration {

@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { expect } from 'chai';
 import 'mocha';
 import { stubObject } from "ts-sinon";
-import VariableManager from "../../src/variableManager";
+import VariableManager from "../../src/helpers/variableManager";
 import * as TaskLib from "azure-pipelines-task-lib/task";
 
 describe('Variable Manager', () => {

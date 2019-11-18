@@ -5,7 +5,7 @@ import 'mocha';
 import { stubObject as Stub, StubbedInstance, stubInterface, stubObject } from "ts-sinon";
 
 //# Imports
-import VariableManager from "../../src/variableManager";
+import VariableManager from "../../src/helpers/variableManager";
 import AzureDevOpsConfiguration from "../../src/models/AzureDevOpsConfiguration";
 
 //# Tests
