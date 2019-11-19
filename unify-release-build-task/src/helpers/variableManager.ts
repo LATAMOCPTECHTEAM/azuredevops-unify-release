@@ -1,11 +1,9 @@
 import { resolve } from "path"
 import { config } from "dotenv"
-import { singleton, injectable, inject } from "tsyringe";
+import { singleton, inject } from "tsyringe";
 import { IVariableManager } from "../interfaces/types";
 
 config({ path: resolve(__dirname, "../.env") })
-
-
 
 @singleton()
 export default class VariableManager implements IVariableManager {
