@@ -6,3 +6,4 @@ unify-release-build-task/testReport
 unify-release-build-task/.nyc_output
 /bin
 .nyc_output
+**/.taskkey
