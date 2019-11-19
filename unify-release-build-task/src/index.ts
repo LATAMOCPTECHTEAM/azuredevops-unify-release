@@ -6,6 +6,7 @@ async function run() {
     try {
         let unifyReleaseService = container.resolve<IUnifyReleaseService>("IUnifyReleaseService");
         await unifyReleaseService.unifyRelease();
+        console.log("Test");
         tl.setResult(tl.TaskResult.Succeeded, "Task Completed");
     }
     catch (err) {
