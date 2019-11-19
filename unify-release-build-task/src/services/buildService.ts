@@ -1,4 +1,4 @@
-import { Build, BuildStatus, BuildResult } from "azure-devops-node-api/interfaces/BuildInterfaces";
+import { Build } from "azure-devops-node-api/interfaces/BuildInterfaces";
 import IAzureDevOpsClientWrapper from "../helpers/azureDevOpsClientWrapper";
 import { injectable, inject } from "tsyringe";
 import { IBuildService } from "../interfaces/types";

@@ -6,8 +6,7 @@ import { StubbedInstance, stubInterface as StubInterface } from "ts-sinon";
 
 //# Imports
 import AzureDevOpsClientWrapper from "../../src/helpers/azureDevOpsClientWrapper";
-import { Build, BuildStatus, BuildResult } from "azure-devops-node-api/interfaces/BuildInterfaces";
-import buildService from "../../src/services/buildService";
+import { Build } from "azure-devops-node-api/interfaces/BuildInterfaces";
 import BuildService from "../../src/services/buildService";
 
 //# Tests

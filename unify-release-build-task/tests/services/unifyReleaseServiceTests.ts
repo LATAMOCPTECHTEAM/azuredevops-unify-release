@@ -28,7 +28,6 @@ describe('UnifyReleaseService', () => {
     })
 
     describe('unifyRelease', () => {
-        const buildId = 1;
         it("Should create tag if all last related builds are Completed and Succeeded or Partially Suceeded", async () => {
             let triggeredBuild: Build = {
                 id: 1,
