@@ -1,9 +1,9 @@
 import "reflect-metadata";
 import { injectable, inject } from "tsyringe";
-import VariableManager from "../helpers/variableManager";
+import { IAzureDevOpsConfiguration, IVariableManager } from "../interfaces/types";
 
 @injectable()
-export default class AzureDevOpsConfiguration {
+export default class AzureDevOpsConfiguration implements IAzureDevOpsConfiguration {
     public releaseTag: string;
     public waitForAllTriggeredBuilds: boolean;
     public definition1: string;
@@ -18,7 +18,7 @@ export default class AzureDevOpsConfiguration {
     public accessToken: string;
     public currentBuildId: number;
 
-    constructor(@inject(VariableManager) private variableManager : VariableManager){
+    constructor(@inject("IVariableManager") private variableManager: IVariableManager) {
         this.releaseTag = variableManager.getInput('releaseTag', true)!;
         this.waitForAllTriggeredBuilds = variableManager.getBooleanInput('waitForAllBuilds', false)!;
         this.definition1 = variableManager.getInput('definition1', false)!;

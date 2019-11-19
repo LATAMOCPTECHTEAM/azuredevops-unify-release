@@ -1,11 +1,14 @@
 import { resolve } from "path"
 import { config } from "dotenv"
-import { injectable, inject } from "tsyringe";
+import { singleton, injectable, inject } from "tsyringe";
+import { IVariableManager } from "../interfaces/types";
 
 config({ path: resolve(__dirname, "../.env") })
-@injectable()
-export default class VariableManager {
 
+
+
+@singleton()
+export default class VariableManager implements IVariableManager {
     constructor(@inject("TaskLib") private taskLib: any) {
     }
 
@@ -13,7 +16,7 @@ export default class VariableManager {
         if (process.env.NODE_ENV == "development") {
             if (required && !process.env[key]) {
                 throw new Error(`Required Parameter ${key} not supplied.`)
-            } 
+            }
             return process.env[key];
         } else {
             return this.taskLib.getInput(key, required)!;

@@ -2,21 +2,29 @@
 import "reflect-metadata";
 import { expect } from 'chai';
 import 'mocha';
-import { stubObject as Stub, StubbedInstance, stubInterface } from "ts-sinon";
+import { StubbedInstance, stubInterface as StubInterface } from "ts-sinon";
 
 //# Imports
-import AzureDevOpsClientWrapper from "../../src/helpers/azureDevOpsClientWrapper";
+import { IAzureDevOpsConfiguration, IBuildService } from "../../src/interfaces/types";
 import { Build, BuildStatus, BuildResult } from "azure-devops-node-api/interfaces/BuildInterfaces";
-import AzureDevOpsClient from "../../src/services/buildService";
-import BuildService from "../../src/services/buildService";
+import UnifyReleaseService from "../../src/services/unifyReleaseService";
 
 //# Tests
 describe('UnifyReleaseService', () => {
-    const organizationUrl = "organizationUrl";
-    const token = "token";
-    const project = "project";
-
+    var configStub: StubbedInstance<IAzureDevOpsConfiguration> = null;
     beforeEach(() => {
+        configStub = StubInterface<IAzureDevOpsConfiguration>();
+        configStub.teamFoundationCollectionUri = "organizationUrl";
+        configStub.teamFoundationProject = "project";
+        configStub.accessToken = "token";
+        configStub.waitForAllTriggeredBuilds = true;
+        configStub.currentBuildId = 1;
+        configStub.releaseTag = "releaseTag";
+        configStub.definition1 = "1";
+        configStub.definition2 = "2";
+        configStub.definition3 = "3";
+        configStub.definition4 = "4";
+        configStub.definition5 = "5";
     })
 
     describe('unifyRelease', () => {
@@ -53,12 +61,30 @@ describe('UnifyReleaseService', () => {
             relatedBuildsStub.set(build2.definition.id.toString(), build2);
             relatedBuildsStub.set(build3.definition.id.toString(), build3);
 
-            let buildServiceStub: StubbedInstance<BuildService> = Stub(new BuildService(null));
+            let buildServiceStub: StubbedInstance<IBuildService> = StubInterface<IBuildService>();
 
-            buildServiceStub.getBuildInfo.withArgs(organizationUrl, token, project, buildId).returns(Promise.resolve(triggeredBuild));
-            buildServiceStub.listRelatedBuilds.withArgs(organizationUrl, token, project, "sourceVersion", true, ["1", "2", "3", "4", "5"]).returns(Promise.resolve(relatedBuildsStub));
+            buildServiceStub.getBuildInfo
+                .withArgs(
+                    configStub.teamFoundationCollectionUri, configStub.accessToken, configStub.teamFoundationProject, configStub.currentBuildId)
+                .returns(Promise.resolve(triggeredBuild));
 
-            throw new Error("Not Implemented");
+            buildServiceStub.listRelatedBuilds
+                .withArgs(
+                    configStub.teamFoundationCollectionUri, configStub.accessToken, configStub.teamFoundationProject, "sourceVersion", configStub.waitForAllTriggeredBuilds, [configStub.definition1, configStub.definition2, configStub.definition3, configStub.definition4, configStub.definition5])
+                .returns(Promise.resolve(relatedBuildsStub));
+
+            let buildServiceCreateTagSpy = buildServiceStub.addBuildTag
+                .withArgs(configStub.teamFoundationCollectionUri, configStub.teamFoundationProject, configStub.accessToken, configStub.currentBuildId, configStub.releaseTag);
+
+            var unifyReleaseService = new UnifyReleaseService(buildServiceStub, configStub);
+
+            await unifyReleaseService.unifyRelease();
+
+            debugger;
+            expect(buildServiceCreateTagSpy.calledOnce).equal(true);
+
+
+            //    throw new Error("Not Implemented");
 
         });
 

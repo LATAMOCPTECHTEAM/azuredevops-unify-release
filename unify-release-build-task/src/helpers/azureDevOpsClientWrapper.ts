@@ -1,10 +1,11 @@
 import * as azdev from "azure-devops-node-api";
 import { IBuildApi } from "azure-devops-node-api/BuildApi";
 import { BuildReason, BuildStatus, BuildResult, BuildQueryOrder, QueryDeletedOption, Build } from "azure-devops-node-api/interfaces/BuildInterfaces"
-import { injectable, inject } from "tsyringe";
+import { injectable } from "tsyringe";
+import { IAzureDevOpsWrapper } from "../interfaces/types";
 
 @injectable()
-export default class AzureDevOpsWrapper {
+export default class AzureDevOpsWrapper implements IAzureDevOpsWrapper {
     constructor() { }
 
     async getBuildApi(organizationUrl: string, token: string): Promise<IBuildApi> {

@@ -2,11 +2,11 @@
 import "reflect-metadata";
 import { expect } from 'chai';
 import 'mocha';
-import { stubObject as Stub, StubbedInstance, stubInterface, stubObject } from "ts-sinon";
+import { StubbedInstance, stubInterface as StubInterface } from "ts-sinon";
 
 //# Imports
-import VariableManager from "../../src/helpers/variableManager";
 import AzureDevOpsConfiguration from "../../src/models/AzureDevOpsConfiguration";
+import { IVariableManager } from "../../src/interfaces/types";
 
 //# Tests
 describe('AzureDevOpsConfiguration', () => {
@@ -15,7 +15,7 @@ describe('AzureDevOpsConfiguration', () => {
 
     describe('constructor', () => {
         it('Should get variables from variable manager', async () => {
-            let variableManagerStub: StubbedInstance<VariableManager> = Stub(new VariableManager(null));
+            let variableManagerStub: StubbedInstance<IVariableManager> = StubInterface<IVariableManager>();
             variableManagerStub.getInput.withArgs('releaseTag', true).returns("releaseTag");
             variableManagerStub.getInput.withArgs('definition1', false).returns("definition1");
             variableManagerStub.getInput.withArgs('definition2', false).returns("definition2");

@@ -1,15 +1,13 @@
-import * as azdev from "azure-devops-node-api";
-import * as ba from "azure-devops-node-api/BuildApi";
 import { Build, BuildStatus, BuildResult } from "azure-devops-node-api/interfaces/BuildInterfaces";
-import { stringify } from "querystring";
-import { IBuildApi } from "azure-devops-node-api/BuildApi";
-import AzureDevOpsClientWrapper from "../helpers/azureDevOpsClientWrapper";
+import IAzureDevOpsClientWrapper from "../helpers/azureDevOpsClientWrapper";
 import { injectable, inject } from "tsyringe";
+import { IBuildService } from "../interfaces/types";
+
 
 @injectable()
-export default class AzureDevOpsClient {
+export default class BuildService implements IBuildService {
 
-    constructor(@inject(AzureDevOpsClientWrapper) private azureDevOpsClient: AzureDevOpsClientWrapper) {
+    constructor(@inject("IAzureDevOpsClientWrapper") private azureDevOpsClient: IAzureDevOpsClientWrapper) {
 
     }
 
@@ -51,7 +49,7 @@ export default class AzureDevOpsClient {
         return builds.sort((a, b) => b.queueTime.getDate() - a.queueTime.getDate());
     }
 
-    public async addBuildTag(organizationUrl: string, token: string, project: string, buildId: number, tag: string) {
+    public async addBuildTag(organizationUrl: string, project: string, token: string, buildId: number, tag: string) {
         return await await this.azureDevOpsClient.addBuildTag(organizationUrl, token, project, buildId, tag);
     }
 }
