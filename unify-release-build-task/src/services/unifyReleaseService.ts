@@ -38,13 +38,18 @@ export default class UnifyReleaseService implements IUnifyReleaseService {
                 continue;
             }
 
-            if (build.result == BuildResult.Canceled && !this.configuration.releaseOnCancel) {
+            if ((build.result == BuildResult.Canceled || build.status == BuildStatus.Cancelling) && !this.configuration.releaseOnCancel) {
                 shouldCreateTag = false;
                 break;
             }
 
 
             if (build.result == BuildResult.Failed && !this.configuration.releaseOnError) {
+                shouldCreateTag = false;
+                break;
+            }
+
+            if (build.status == BuildStatus.Postponed || build.status == BuildStatus.InProgress || build.status == BuildStatus.NotStarted) {
                 shouldCreateTag = false;
                 break;
             }
