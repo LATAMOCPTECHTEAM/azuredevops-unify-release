@@ -40,7 +40,11 @@ In this way, only the last build to finish will create the build tag and the pip
 1. Install the Unify Release Task from the Azure DevOps Marketplace.
    
 2. Put the Unify release task in your build pipelines as the last task to be executed.
- 
+
+3. In your Agent Configuration, active the Flag: Allow scripts to access the OAuth token
+
+![Azure DevOps tests](https://github.com/psbds/azuredevops-unify-release/blob/master/docs/agent-config-oauth.png)
+
 4. In your Release Artifacts, put a Build Tag filter for the build tag you configured on the Unify Release Task (default to create_release).
 
 
