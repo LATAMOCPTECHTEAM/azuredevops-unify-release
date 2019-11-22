@@ -10,7 +10,7 @@ async function run() {
         tl.setResult(tl.TaskResult.Succeeded, "Task Completed");
     }
     catch (err) {
-        tl.setResult(tl.TaskResult.Failed, err.message);
+        tl.setResult(tl.TaskResult.Failed, JSON.stringify(err));
     }
 }
 run();
