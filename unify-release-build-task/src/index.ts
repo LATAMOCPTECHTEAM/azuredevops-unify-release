@@ -9,8 +9,8 @@ async function run() {
         console.log("Test");
         tl.setResult(tl.TaskResult.Succeeded, "Task Completed");
     }
-    catch (err) {
-        tl.setResult(tl.TaskResult.Failed, JSON.stringify(err));
+    catch (err_1) {
+        tl.setResult(tl.TaskResult.Failed, JSON.stringify(err_1));
     }
 }
 run();
