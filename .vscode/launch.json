@@ -32,7 +32,8 @@
             ],
             "port": 9229,
             "outFiles": ["${workspaceRoot}/unify-release-build-task/bin"],
-            "sourceMaps": true
+            "sourceMaps": true,
+            "timeout": 30000
         }
     ]
 }
