@@ -10,6 +10,7 @@ async function run() {
         tl.setResult(tl.TaskResult.Succeeded, "Task Completed");
     }
     catch (err) {
+        console.error(`Build Error.+${err}`);
         tl.logIssue(tl.IssueType.Error, err.message);
         tl.logIssue(tl.IssueType.Error, JSON.stringify(err));
         tl.setResult(tl.TaskResult.Failed, JSON.stringify(err));
