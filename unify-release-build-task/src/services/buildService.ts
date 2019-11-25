@@ -1,13 +1,12 @@
 import { Build } from "azure-devops-node-api/interfaces/BuildInterfaces";
-import IAzureDevOpsClientWrapper from "../helpers/azureDevOpsClientWrapper";
 import { injectable, inject } from "tsyringe";
 import { IBuildService } from "../interfaces/types";
-
+import { IAzureDevOpsWrapper } from "../interfaces/types";
 
 @injectable()
 export default class BuildService implements IBuildService {
 
-    constructor(@inject("IAzureDevOpsClientWrapper") private azureDevOpsClient: IAzureDevOpsClientWrapper) {
+    constructor(@inject("IAzureDevOpsWrapper") private azureDevOpsClient: IAzureDevOpsWrapper) {
 
     }
 
