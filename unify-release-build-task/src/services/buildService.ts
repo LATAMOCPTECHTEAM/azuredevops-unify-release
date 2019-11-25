@@ -15,7 +15,7 @@ export default class BuildService implements IBuildService {
         return await this.azureDevOpsClient.getBuild(organizationUrl, token, project, buildId);
     }
 
-    public async listRelatedBuilds(organizationUrl: string, token: string, project: string, sourceVersion: string, waitForAllBuilds: Boolean = true, definitionFilters?: string[]): Promise<Map<string, Build>> {
+    public async listRelatedBuilds(organizationUrl: string, token: string, project: string, sourceVersion: string, waitForAllBuilds: Boolean, definitionFilters?: string[]): Promise<Map<string, Build>> {
         let allBuilds = await this.azureDevOpsClient.getBuilds(organizationUrl, token, project, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
         var relatedBuilds = this.filterBuildsFromSameSourceVersion(allBuilds, sourceVersion);

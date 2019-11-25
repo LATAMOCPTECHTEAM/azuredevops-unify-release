@@ -32,7 +32,7 @@ describe('AzureDevOpsBuildService', () => {
 
     describe('getRelatedBuilds', () => {
         it("Should return last Build from definitions triggered from the same Source Version", async () => {
-            let build1Definition0: Build = {
+            let build1_Definition0: Build = {
                 queueTime: (() => { let date = new Date(); date.setDate(1); return date; })(),
                 definition: {
                     id: 0,
@@ -40,7 +40,7 @@ describe('AzureDevOpsBuildService', () => {
                 sourceVersion: "sourceVersion"
             };
 
-            let build2Definition0: Build = {
+            let build2_Definition0: Build = {
                 queueTime: (() => { let date = new Date(); date.setDate(2); return date; })(),
                 definition: {
                     id: 0,
@@ -48,16 +48,16 @@ describe('AzureDevOpsBuildService', () => {
                 sourceVersion: "sourceVersion"
             };
 
-            let build1Definition1: Build = {
-                queueTime: (() => { let date = new Date(); date.setDate(1); return date; })(),
+            let build1_Definition1: Build = {
+                queueTime: (() => { let date = new Date(); date.setDate(2); return date; })(),
                 definition: {
                     id: 1,
                 },
                 sourceVersion: "sourceVersion"
             }
 
-            let build2Definition1: Build = {
-                queueTime: (() => { let date = new Date(); date.setDate(2); return date; })(),
+            let build2_Definition1: Build = {
+                queueTime: (() => { let date = new Date(); date.setDate(1); return date; })(),
                 definition: {
                     id: 1,
                 },
@@ -72,15 +72,15 @@ describe('AzureDevOpsBuildService', () => {
                 sourceVersion: "otherSource"
             }
 
-            var buildStubs: Build[] = [build1Definition0, build2Definition0, build1Definition1, build2Definition1, build1Definition2];
+            var buildStubs: Build[] = [build1_Definition0, build2_Definition0, build1_Definition1, build2_Definition1, build1Definition2];
             azureDevOpsClientWrapperStub.getBuilds.withArgs("organizationUrl", "token", "project", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).returns(Promise.resolve(buildStubs))
 
             let azureDevOpsClient = new BuildService(azureDevOpsClientWrapperStub);
 
             var relatedBuilds = await azureDevOpsClient.listRelatedBuilds("organizationUrl", "token", "project", "sourceVersion", true, null);
 
-            expect(relatedBuilds.get("0")).equal(build2Definition0);
-            expect(relatedBuilds.get("1")).equal(build2Definition1);
+            expect(relatedBuilds.get("0")).equal(build2_Definition0);
+            expect(relatedBuilds.get("1")).equal(build1_Definition1);
             expect(relatedBuilds.size).equal(2);
         });
 
@@ -144,7 +144,7 @@ describe('AzureDevOpsBuildService', () => {
             let azureDevOpsClient = new BuildService(azureDevOpsClientWrapperStub);
 
             await azureDevOpsClient.addBuildTag("organizationUrl", "token", "project", 0, "create_release");
-            expect(azureDevOpsClientWrapperStub.addBuildTag.calledOnce).to.true;
+            expect(azureDevOpsClientWrapperStub.addBuildTag.calledOnce).equals(true);
         });
     });
 });

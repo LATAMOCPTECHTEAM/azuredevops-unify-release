@@ -28,18 +28,24 @@ describe('AzureDevOpsConfiguration', () => {
             variableManagerStub.getVariable.withArgs("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI").returns("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI");
             variableManagerStub.getVariable.withArgs("SYSTEM_TEAMPROJECT").returns("SYSTEM_TEAMPROJECT");
             variableManagerStub.getVariable.withArgs("SYSTEM_ACCESSTOKEN").returns("SYSTEM_ACCESSTOKEN");
-            variableManagerStub.getVariable.withArgs("BUILD_BUILDID").returns("BUILD_BUILDID");
+            variableManagerStub.getVariable.withArgs("BUILD_BUILDID").returns("1");
 
             var azureDevOpsConfiguration = new AzureDevOpsConfiguration(variableManagerStub);
 
-            expect(azureDevOpsConfiguration.releaseTag).equal("releaseTag")
-            expect(azureDevOpsConfiguration.definition1).equal("definition1")
-            expect(azureDevOpsConfiguration.definition2).equal("definition2")
-            expect(azureDevOpsConfiguration.definition3).equal("definition3")
-            expect(azureDevOpsConfiguration.definition4).equal("definition4")
-            expect(azureDevOpsConfiguration.definition5).equal("definition5")
-            expect(azureDevOpsConfiguration.releaseTag).equal("releaseTag")
-
+            expect(azureDevOpsConfiguration.releaseTag).equal("releaseTag");
+            expect(azureDevOpsConfiguration.definition1).equal("definition1");
+            expect(azureDevOpsConfiguration.definition2).equal("definition2");
+            expect(azureDevOpsConfiguration.definition3).equal("definition3");
+            expect(azureDevOpsConfiguration.definition4).equal("definition4");
+            expect(azureDevOpsConfiguration.definition5).equal("definition5");
+            expect(azureDevOpsConfiguration.releaseTag).equal("releaseTag");
+            expect(azureDevOpsConfiguration.waitForAllTriggeredBuilds).equal(true);
+            expect(azureDevOpsConfiguration.releaseOnCancel).equal(true);
+            expect(azureDevOpsConfiguration.releaseOnError).equal(true);
+            expect(azureDevOpsConfiguration.teamFoundationCollectionUri).equal("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI");
+            expect(azureDevOpsConfiguration.teamFoundationProject).equal("SYSTEM_TEAMPROJECT");
+            expect(azureDevOpsConfiguration.accessToken).equal("SYSTEM_ACCESSTOKEN");
+            expect(azureDevOpsConfiguration.currentBuildId).equal(1);
         });
     });
 });
