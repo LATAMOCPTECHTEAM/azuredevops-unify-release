@@ -7,3 +7,5 @@ unify-release-build-task/.nyc_output
 /bin
 .nyc_output
 **/.taskkey
+.stryker-tmp
+stryker.log
