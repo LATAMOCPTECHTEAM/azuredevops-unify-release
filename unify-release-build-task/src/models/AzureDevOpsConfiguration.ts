@@ -28,10 +28,9 @@ export default class AzureDevOpsConfiguration implements IAzureDevOpsConfigurati
         this.definition5 = variableManager.getInput('definition5', false)!;
         this.releaseOnCancel = variableManager.getBooleanInput('releaseOnCancel', true)!;
         this.releaseOnError = variableManager.getBooleanInput('releaseOnError', true)!;
-        this.teamFoundationCollectionUri = variableManager.getVariable("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI")!;
-        this.teamFoundationProject = variableManager.getVariable("SYSTEM_TEAMPROJECT")!;
-        this.accessToken = variableManager.getVariable("SYSTEM_ACCESSTOKEN")!;
-        this.currentBuildId = parseInt(variableManager.getVariable("BUILD_BUILDID")!);
+        this.teamFoundationCollectionUri = variableManager.getVariable("System.TeamFoundationCollectionUri")!;
+        this.teamFoundationProject = variableManager.getVariable("System.TeamProject")!;
+        this.accessToken = variableManager.getVariable("System.AccessToken")!;
+        this.currentBuildId = parseInt(variableManager.getVariable("Build.BuildId")!);
     }
-
 }

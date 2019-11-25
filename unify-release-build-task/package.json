@@ -10,6 +10,7 @@
     "test": "mocha -r ts-node/register --reporter-options mochaFile=testReport/test-results.xml --reporter mocha-junit-reporter tests/**/*.ts",
     "test-debug": "mocha -r ts-node/register --inspect-brk tests/**/*.ts",
     "test-local": "mocha -r ts-node/register tests/**/*.ts",
+    "test-mutation": "stryker run",
     "coverage": "tsc && nyc --all --report-dir testReport --reporter cobertura npm run test",
     "coverage-local": "tsc && nyc --all --report-dir testReport --reporter text npm run test-local",
     "watch": "npm-watch"
@@ -43,6 +44,11 @@
     "tsyringe": "^4.0.1"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^2.4.0",
+    "@stryker-mutator/html-reporter": "^2.4.0",
+    "@stryker-mutator/mocha-framework": "^2.4.0",
+    "@stryker-mutator/mocha-runner": "^2.4.0",
+    "@stryker-mutator/typescript": "^2.4.0",
     "@types/chai": "^4.2.5",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.12",

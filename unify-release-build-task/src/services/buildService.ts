@@ -1,13 +1,12 @@
 import { Build } from "azure-devops-node-api/interfaces/BuildInterfaces";
-import IAzureDevOpsClientWrapper from "../helpers/azureDevOpsClientWrapper";
 import { injectable, inject } from "tsyringe";
 import { IBuildService } from "../interfaces/types";
-
+import { IAzureDevOpsWrapper } from "../interfaces/types";
 
 @injectable()
 export default class BuildService implements IBuildService {
 
-    constructor(@inject("IAzureDevOpsClientWrapper") private azureDevOpsClient: IAzureDevOpsClientWrapper) {
+    constructor(@inject("IAzureDevOpsWrapper") private azureDevOpsClient: IAzureDevOpsWrapper) {
 
     }
 
@@ -15,7 +14,7 @@ export default class BuildService implements IBuildService {
         return await this.azureDevOpsClient.getBuild(organizationUrl, token, project, buildId);
     }
 
-    public async listRelatedBuilds(organizationUrl: string, token: string, project: string, sourceVersion: string, waitForAllBuilds: Boolean = true, definitionFilters?: string[]): Promise<Map<string, Build>> {
+    public async listRelatedBuilds(organizationUrl: string, token: string, project: string, sourceVersion: string, waitForAllBuilds: Boolean, definitionFilters?: string[]): Promise<Map<string, Build>> {
         let allBuilds = await this.azureDevOpsClient.getBuilds(organizationUrl, token, project, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
         var relatedBuilds = this.filterBuildsFromSameSourceVersion(allBuilds, sourceVersion);

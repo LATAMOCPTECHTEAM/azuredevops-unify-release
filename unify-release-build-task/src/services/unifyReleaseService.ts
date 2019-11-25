@@ -33,11 +33,6 @@ export default class UnifyReleaseService implements IUnifyReleaseService {
                 continue;
             }
 
-            if (build.status == BuildStatus.Completed && (build.result == BuildResult.Succeeded || build.result == BuildResult.PartiallySucceeded)) {
-                console.log(`Build Succeeded, continue.`)
-                continue;
-            }
-
             if ((build.result == BuildResult.Canceled || build.status == BuildStatus.Cancelling) && !this.configuration.releaseOnCancel) {
                 shouldCreateTag = false;
                 break;

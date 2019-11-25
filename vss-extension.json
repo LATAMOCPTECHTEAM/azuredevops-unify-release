@@ -8,13 +8,20 @@
         {
             "id": "Microsoft.VisualStudio.Services"
         }
-    ],    
-    "description": "Tools for building/releasing with Fabrikam. Includes one build/release task.",
+    ],
+    "details": {
+        "path": "README.md"
+    },
+    "description": "Unify Relase is a simple build task for Azure DevOps to enable two or more builds from the same source code to trigger a single Release.",
     "categories": [
         "Azure Pipelines"
     ],
     "icons": {
-        "default": "images/extension-icon.png"        
+        "default": "images/extension-icon.png"
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/psbds/azuredevops-unify-release"
     },
     "files": [
         {

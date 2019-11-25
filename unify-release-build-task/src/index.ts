@@ -6,11 +6,14 @@ async function run() {
     try {
         let unifyReleaseService = container.resolve<IUnifyReleaseService>("IUnifyReleaseService");
         await unifyReleaseService.unifyRelease();
-        console.log("Test");
+        console.log("Test2");
         tl.setResult(tl.TaskResult.Succeeded, "Task Completed");
     }
     catch (err) {
-        tl.setResult(tl.TaskResult.Failed, err.message);
+        console.error(`Build Error.+${err}`);
+        tl.logIssue(tl.IssueType.Error, err.message);
+        tl.logIssue(tl.IssueType.Error, JSON.stringify(err));
+        tl.setResult(tl.TaskResult.Failed, JSON.stringify(err));
     }
 }
 run();
