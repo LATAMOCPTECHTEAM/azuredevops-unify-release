@@ -10,6 +10,7 @@
     "emitDecoratorMetadata": true
   },
   "exclude": [
-    "tests"
+    "tests",
+    "node_modules"
   ]
 }
