@@ -62,6 +62,6 @@
     "sinon": "^7.5.0",
     "ts-node": "^8.5.2",
     "ts-sinon": "^1.0.24",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.3"
   }
 }
