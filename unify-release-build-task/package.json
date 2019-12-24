@@ -51,7 +51,7 @@
     "@stryker-mutator/typescript": "^2.4.0",
     "@types/chai": "^4.2.5",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.12.12",
+    "@types/node": "^13.1.0",
     "@types/q": "^1.5.2",
     "@types/request-promise": "^4.1.45",
     "chai": "^4.2.0",
