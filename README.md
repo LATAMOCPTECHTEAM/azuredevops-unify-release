@@ -1,4 +1,10 @@
-![Azure DevOps tests](https://github.com/psbds/azuredevops-unify-release/blob/master/images/extension-icon.png)
+#### <i>Work In Progress - Not Yet Avaliable for use</i>
+
+
+
+<p align="center"> <img src="https://github.com/psbds/azuredevops-unify-release/blob/master/images/extension-icon.png"/> </p>
+
+
 # Azure Devops Unify Release Task
 
 
