@@ -49,7 +49,7 @@
     "@stryker-mutator/mocha-framework": "^2.4.0",
     "@stryker-mutator/mocha-runner": "^2.4.0",
     "@stryker-mutator/typescript": "^2.4.0",
-    "@types/chai": "^4.2.5",
+    "@types/chai": "^4.2.8",
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.8",
     "@types/q": "^1.5.2",
