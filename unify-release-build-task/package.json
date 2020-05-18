@@ -41,7 +41,7 @@
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
-    "tsyringe": "^4.0.1"
+    "tsyringe": "^4.3.0"
   },
   "devDependencies": {
     "@stryker-mutator/core": "^2.4.0",
