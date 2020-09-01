@@ -50,7 +50,7 @@
     "@stryker-mutator/mocha-runner": "^2.4.0",
     "@stryker-mutator/typescript": "^2.4.0",
     "@types/chai": "^4.2.5",
-    "@types/mocha": "^5.2.7",
+    "@types/mocha": "^8.0.3",
     "@types/node": "^13.1.8",
     "@types/q": "^1.5.2",
     "@types/request-promise": "^4.1.45",
